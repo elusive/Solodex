@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="Elusive.Solodex.Modules.Contacts.Views.ListContactsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:commands="clr-namespace:Elusive.Solodex.UI.Common.Commands;assembly=Elusive.Solodex.UI.Common"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:interactionRequest="http://prismlibrary.com/"
+             xmlns:interactivity="clr-namespace:Elusive.Solodex.UI.Common.Interactivity;assembly=Elusive.Solodex.UI.Common"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="clr-namespace:Elusive.Solodex.Modules.Contacts.Views"
+             commands:LoadedCommand.Command="{Binding LoadedCommand}"
+             mc:Ignorable="d">
+
+    <i:Interaction.Triggers>
+        <interactionRequest:InteractionRequestTrigger SourceObject="{Binding CreateEditContactInteractionRequest, Mode=OneWay}">
+            <interactivity:PopupNotificationAction CenterOverAssociatedObject="True" IsModal="True">
+                <interactivity:PopupNotificationAction.WindowContent>
+                    <views:CreateEditContactView />
+                </interactivity:PopupNotificationAction.WindowContent>
+            </interactivity:PopupNotificationAction>
+        </interactionRequest:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <StackPanel>
+            <!--  Buttons  -->
+            <StackPanel Margin="7,15"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                <Button x:Name="AddButton"
+                        Margin="0,0,7,0"
+                        Command="{Binding AddContactCommand}"
+                        Content="Add Contact" />
+                <Button x:Name="EditButton"
+                        Command="{Binding EditContactCommand}"
+                        Content="Edit Contact" />
+            </StackPanel>
+            <DataGrid x:Name="ContactsDataGrid"
+                      Margin="0,7,0,0"
+                      AutoGenerateColumns="False"
+                      Block.TextAlignment="Center"
+                      CanUserAddRows="False"
+                      CanUserSortColumns="True"
+                      DataContext="{Binding}"
+                      HeadersVisibility="Column"
+                      IsSynchronizedWithCurrentItem="True"
+                      ItemsSource="{Binding Contacts}"
+                      ScrollViewer.CanContentScroll="True"
+                      SelectedIndex="{Binding SelectedContactIndex}"
+                      SelectionMode="Single"
+                      SelectionUnit="FullRow">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="0.75*"
+                                        Binding="{Binding FullName}"
+                                        ElementStyle="{StaticResource TextWrappingDataGridTextColumn}"
+                                        Header="Full Name"
+                                        IsReadOnly="True" />
+
+                    <DataGridTextColumn Width="1.25*"
+                                        Binding="{Binding Email}"
+                                        ElementStyle="{StaticResource TextWrappingDataGridTextColumn}"
+                                        Header="Email"
+                                        IsReadOnly="True" />
+
+                    <DataGridTextColumn Width="0.5*"
+                                        Binding="{Binding MobilePhone}"
+                                        ElementStyle="{StaticResource TextWrappingDataGridTextColumn}"
+                                        Header="Mobile"
+                                        IsReadOnly="True" />
+
+                    <DataGridTextColumn Width="*"
+                                        Binding="{Binding Notes}"
+                                        ElementStyle="{StaticResource TextWrappingDataGridTextColumn}"
+                                        Header="Notes"
+                                        IsReadOnly="True" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+
+        </StackPanel>
+    </Grid>
+</UserControl>

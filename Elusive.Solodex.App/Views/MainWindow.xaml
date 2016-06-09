@@ -1,0 +1,95 @@
+﻿<Window x:Class="Elusive.Solodex.App.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Ui="clr-namespace:Elusive.Solodex.UI.Common;assembly=Elusive.Solodex.UI.Common"
+        xmlns:prism="http://www.codeplex.com/prism"
+        xmlns:valueConverters="clr-namespace:Elusive.Solodex.UI.Common.ValueConverters;assembly=Elusive.Solodex.UI.Common"
+        x:Name="Root"
+        Title="Solodex Address Book"
+        Width="1024"
+        Height="768"
+        Background="{StaticResource AppBackgroundBrush}"
+        UseLayoutRounding="True">
+
+    <Window.Resources>
+        <valueConverters:BoolToVisibilityConverter x:Key="BoolToVisConverter" />
+        <Style x:Key="LogoStyle" TargetType="Image">
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Height" Value="65" />
+            <Setter Property="Width" Value="115" />
+        </Style>
+    </Window.Resources>
+
+    <Grid x:Name="MainGrid" Background="{StaticResource AppBackgroundBrush}">
+        <Grid Visibility="{Binding HasContent, ElementName=MainWindowOverlayRegion, Converter={StaticResource BoolToVisConverter}, ConverterParameter=invert}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+
+            <!--  ROW 0 : Header Region  -->
+            <Grid Grid.Row="0">
+
+                <Image Grid.Row="0"
+                       Source="{StaticResource Logo}"
+                       Style="{StaticResource LogoStyle}" />
+
+            </Grid>
+
+
+            <!--  ROW 1 : Contents Area  -->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+
+                <!--  Column 0 : Menu Region  -->
+                <ItemsControl Grid.Row="0"
+                              Grid.Column="0"
+                              prism:RegionManager.RegionName="{x:Static Ui:RegionNames.MenuRegion}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Rows="1" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+
+
+                <!--  Search Box  -->
+                <ContentControl Grid.Row="1"
+                                Grid.Column="1"
+                                prism:RegionManager.RegionName="{x:Static Ui:RegionNames.SearchRegion}" />
+
+
+
+                <!--  Column 1 : Main Region  -->
+                <ContentControl Grid.Row="0"
+                                Grid.Column="1"
+                                prism:RegionManager.RegionName="{x:Static Ui:RegionNames.MainRegion}" />
+
+
+                <!--  status bar  -->
+                <ContentControl Grid.Row="1"
+                                Grid.Column="1"
+                                prism:RegionManager.RegionName="{x:Static Ui:RegionNames.StatusRegion}" />
+
+
+            </Grid>
+        </Grid>
+
+        <!--  Overlay Region  -->
+        <ContentControl x:Name="MainWindowOverlayRegion"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        prism:RegionManager.RegionName="{x:Static Ui:RegionNames.OverlayRegion}"
+                        IsHitTestVisible="True" />
+
+    </Grid>
+</Window>

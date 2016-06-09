@@ -1,0 +1,5 @@
+﻿<controls:ViewItemControl x:Class="Elusive.Solodex.Modules.Contacts.Controls.AddContactViewItemControl"
+                          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                          xmlns:controls="clr-namespace:Elusive.Solodex.UI.Common.Controls;assembly=Elusive.Solodex.UI.Common"
+                          Content="New" />

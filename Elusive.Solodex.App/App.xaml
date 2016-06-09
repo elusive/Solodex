@@ -1,0 +1,12 @@
+﻿<Core:ApplicationBase x:Class="Elusive.Solodex.App.App"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Core="clr-namespace:Elusive.Solodex.Core.Common;assembly=Elusive.Solodex.Core">
+    <Core:ApplicationBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Elusive.Solodex.UI.Common;component/Resources/Default.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Core:ApplicationBase.Resources>
+</Core:ApplicationBase>

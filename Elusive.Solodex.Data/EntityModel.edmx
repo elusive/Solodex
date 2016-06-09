@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SolodexModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Addresses">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Contact_Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="rowversion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Street" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="State" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="Zip" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ApplicationSettings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Key" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="rowversion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Contacts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Prefix" Type="nvarchar" MaxLength="10" />
+          <Property Name="First" Type="nvarchar" MaxLength="30" />
+          <Property Name="Middle" Type="nvarchar" MaxLength="30" />
+          <Property Name="Last" Type="nvarchar" MaxLength="30" />
+          <Property Name="Suffix" Type="nvarchar" MaxLength="10" />
+          <Property Name="MobilePhone" Type="nvarchar" MaxLength="10" />
+          <Property Name="WorkPhone" Type="nvarchar" MaxLength="10" />
+          <Property Name="Gender" Type="char" MaxLength="1" />
+          <Property Name="Dob" Type="datetime" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Notes" Type="nvarchar" MaxLength="250" />
+          <Property Name="rowversion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SchemaVersion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MajorVersion" Type="int" Nullable="false" />
+          <Property Name="MinorVersion" Type="int" Nullable="false" />
+          <Property Name="InstallDate" Type="datetimeoffset" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="SolodexModelStoreContainer">
+          <EntitySet Name="Addresses" EntityType="Self.Addresses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ApplicationSettings" EntityType="Self.ApplicationSettings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contacts" EntityType="Self.Contacts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SchemaVersion" EntityType="Self.SchemaVersion" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SolodexModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ApplicationSetting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Key" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="rowversion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Prefix" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="First" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Middle" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Last" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Suffix" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePhone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="WorkPhone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Dob" Type="DateTime" Precision="3" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="rowversion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Addresses" Relationship="SolodexModel.ContactAddress" FromRole="Contact" ToRole="Address" />
+        </EntityType>
+        <EntityType Name="SchemaVersion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="MajorVersion" Type="Int32" Nullable="false" />
+          <Property Name="MinorVersion" Type="Int32" Nullable="false" />
+          <Property Name="InstallDate" Type="DateTimeOffset" Nullable="false" Precision="7" />
+        </EntityType>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ApplicationSettings" EntityType="Self.ApplicationSetting" />
+          <EntitySet Name="Contacts" EntityType="Self.Contact" />
+          <EntitySet Name="SchemaVersions" EntityType="Self.SchemaVersion" />
+          <EntitySet Name="Addresses" EntityType="SolodexModel.Address" />
+          <AssociationSet Name="ContactAddress" Association="SolodexModel.ContactAddress">
+            <End Role="Contact" EntitySet="Contacts" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Contact_Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="rowversion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Street" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="Zip" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Contact" Relationship="SolodexModel.ContactAddress" FromRole="Address" ToRole="Contact" />
+        </EntityType>
+        <Association Name="ContactAddress">
+          <End Type="SolodexModel.Contact" Role="Contact" Multiplicity="1" />
+          <End Type="SolodexModel.Address" Role="Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contact">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="Contact_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SolodexModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="ApplicationSettings">
+            <EntityTypeMapping TypeName="SolodexModel.ApplicationSetting">
+              <MappingFragment StoreEntitySet="ApplicationSettings">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="rowversion" ColumnName="rowversion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contacts">
+            <EntityTypeMapping TypeName="SolodexModel.Contact">
+              <MappingFragment StoreEntitySet="Contacts">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Prefix" ColumnName="Prefix" />
+                <ScalarProperty Name="First" ColumnName="First" />
+                <ScalarProperty Name="Middle" ColumnName="Middle" />
+                <ScalarProperty Name="Last" ColumnName="Last" />
+                <ScalarProperty Name="Suffix" ColumnName="Suffix" />
+                <ScalarProperty Name="MobilePhone" ColumnName="MobilePhone" />
+                <ScalarProperty Name="WorkPhone" ColumnName="WorkPhone" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Dob" ColumnName="Dob" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="rowversion" ColumnName="rowversion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SchemaVersions">
+            <EntityTypeMapping TypeName="SolodexModel.SchemaVersion">
+              <MappingFragment StoreEntitySet="SchemaVersion">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MajorVersion" ColumnName="MajorVersion" />
+                <ScalarProperty Name="MinorVersion" ColumnName="MinorVersion" />
+                <ScalarProperty Name="InstallDate" ColumnName="InstallDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="SolodexModel.Address">
+              <MappingFragment StoreEntitySet="Addresses">
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="rowversion" ColumnName="rowversion" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Contact_Id" ColumnName="Contact_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,7 @@
+SCMBranch=Common
+SCMRepository=Common/Source/Prism GUI/Lib/SmoLite
+SCMMainlineUUID={3184686a-0bbe-4136-9c79-9e4713ee0f1b}
+SCMBranchRepositoryID=1098
+ContentRenderingApi.dll;318059389;1;1428079656;|1026|3022
+SmoLiteApi.dll;1666856435;1;1428079656;|1027|3023
+SmoLiteApiReference.chm;1678200948;1;1428079657;|1028|3024
